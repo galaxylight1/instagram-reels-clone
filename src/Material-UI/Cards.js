@@ -16,7 +16,7 @@ import ReactDOM from 'react-dom';
 
 const useStyles = makeStyles({
   root: {
-    marginLeft: '18rem',
+    marginLeft: '21.8rem',
     marginTop: '5vh',
     marginBottom: '20vh',
     width: '30%',
@@ -46,12 +46,11 @@ export default function Cards({ source, id, name, avatar}) {
   }
 
   const handleAutoScroll = (e) => {
-    let next = e.target.nextSibling; // TODO: fix for last node
-    console.log(next);
+    let next = e.target.parentElement.parentElement.parentElement.nextSibling; // Note: referred DOM Tree for this
  
     if(next != null)
     {
-      next.scrollIntoView({behaviour: 'smooth'});
+      next.scrollIntoView({behavior: 'smooth'}); // smooth scrolling to next reel
       e.target.muted = true;
     }
   }
