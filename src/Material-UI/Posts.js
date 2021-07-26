@@ -23,17 +23,13 @@ function Posts({ userData = null }) {
     const callback = (entries) => {
         entries.forEach((element) => {
 
-            let el = element.target.childNodes[0];
-            console.log(el);
+            let el = element.target.children[0].children[0].children[0];
 
-            el.play().then(() => {
-                
-                // if this video is not in viewport then pause it
-                if(!el.paused && !element.isInterecting)
-                {
-                    el.pause();
-                }
-            });
+            if(element.isIntersecting == true)
+            {
+                el.play();
+            }
+            else el.pause();
         });
     }
 
@@ -58,7 +54,7 @@ function Posts({ userData = null }) {
     useEffect(() => {
 
         // here, we attach the Intersection Observer 
-        let elements = document.querySelectorAll('.videos');
+        let elements = document.querySelectorAll('.video');
         elements.forEach((el) => {
             observer.observe(el);
         });

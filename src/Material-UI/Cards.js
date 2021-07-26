@@ -46,8 +46,10 @@ export default function Cards({ source, id, name, avatar}) {
   }
 
   const handleAutoScroll = (e) => {
-    let next = ReactDOM.findDOMNode(e.target).parentNode.nextSibling;
-    if(next)
+    let next = e.target.nextSibling; // TODO: fix for last node
+    console.log(next);
+ 
+    if(next != null)
     {
       next.scrollIntoView({behaviour: 'smooth'});
       e.target.muted = true;
