@@ -59,7 +59,7 @@ export default function SignupCard({ name, email, password, file, signup }) {
         <TextField className={classes.field} id="standard-basic" label="Email" onChange={(e) => email(e.target.value)}/>
         <TextField className={classes.field} id="standard-basic" label="Password" type="password" onChange={(e) => password(e.target.value)}/>
         
-        <Button className={classes.fileUpload} variant="contained" color="primary" component="label" >
+        <Button className={classes.fileUpload} variant="contained" color="secondary" component="label" >
         Profile Photo
         <input type="file" accept="image/*" hidden onChange={file} />
         </Button>

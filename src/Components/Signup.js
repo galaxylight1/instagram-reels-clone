@@ -3,6 +3,7 @@ import { AuthContext } from '../Context/AuthProvider';
 import { storage, database } from '../firebase';
 import SignupCard from './SignupCard';
 import style from './Login.module.css';
+import { useHistory } from 'react-router-dom';
 
 let slideIdx = 0;
 
@@ -13,6 +14,8 @@ function Signup() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [file, setFile] = useState(null);
+    const [timer, setTimer] = useState(null);
+    const history = useHistory();
 
     const { signup } = useContext(AuthContext);
 
@@ -57,6 +60,8 @@ function Signup() {
                     profileUrl: downloadUrl,
                     postIds: [],
                 });
+
+                history.push('/');
             }
 
             setLoading(false);
@@ -96,12 +101,16 @@ function Signup() {
         slideIdx++;
 
         if(slideIdx == slides.length) slideIdx = 0; // set back to first element
-
-        setTimeout(carousel, 4000); // re-run function after every 2secs
     }
 
     useEffect(() => {
-        carousel();
+        // good practice
+        let timeout = setInterval(carousel, 4000); // re-run function after every 4secs
+        setTimer(timeout);
+
+        return () => {
+            clearInterval(timeout);
+        }
     }, []);
 
     return (

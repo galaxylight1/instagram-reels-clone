@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -31,9 +32,13 @@ const useStyles = makeStyles({
       marginLeft: '2.5rem',
       marginTop: '0.5rem',
   },
-  btn: {
-      marginLeft: '6.2rem',
+  loginBtn: {
+      marginLeft: '3.4rem',
       marginTop: '2rem',
+  },
+  signUpBtn: {
+    marginLeft: '8.5rem',
+    marginTop: '2rem',
   },
   logo: {
       marginLeft: '4.9rem',
@@ -56,6 +61,7 @@ const useStyles = makeStyles({
 export default function LoginCard({ name, password, login, error }) {
 
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -68,7 +74,8 @@ export default function LoginCard({ name, password, login, error }) {
       </CardContent>
         { error ? <div className={classes.errorMsg}>{error}</div> : <><div className={classes.errorMsg}></div></> }
       <CardActions>
-        <Button className={classes.btn} variant="outlined" color="primary" onClick={login}>Login</Button>
+        <Button className={classes.loginBtn} variant="outlined" color="primary" onClick={login}>Login</Button>
+        <Button className={classes.signUpBtn} variant="contained" color="secondary" onClick={() => history.push('/signup')}>Sign Up</Button>
       </CardActions>
     </Card>
   );

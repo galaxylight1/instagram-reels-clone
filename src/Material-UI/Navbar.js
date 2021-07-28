@@ -60,7 +60,7 @@ export default function Navbar({ userData }) {
                 color="inherit"
               >
                 {/* <AccountCircle className={classes.icon}  /> */}
-                <img className={classes.icon} src={userData.profileUrl} alt="user-img" />
+                <img className={classes.icon} src={userData.profileUrl} />
               </IconButton>
               <Menu
                 id="menu-appbar"

@@ -16,7 +16,7 @@ import ReactDOM from 'react-dom';
 
 const useStyles = makeStyles({
   root: {
-    marginLeft: '21.8rem',
+    marginLeft: '28.3rem',
     marginTop: '5vh',
     marginBottom: '20vh',
     width: '30%',
@@ -28,12 +28,12 @@ const useStyles = makeStyles({
   label: {
     position: 'absolute',
     left: '1rem',
-    bottom: '1.5rem',
+    bottom: '1.85rem',
   },
   actionLabel: {
     position: 'absolute',
     right: '0.1rem',
-    bottom: '1.4rem',
+    bottom: '1.9rem',
   }
 });
 
