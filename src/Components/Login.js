@@ -13,6 +13,7 @@ function Login() {
     const [name, setName] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [timer, setTimer] = useState(null);
     
     const history = useHistory();
     const { login, currentUser } = useContext(AuthContext);
@@ -48,18 +49,23 @@ function Login() {
         slideIdx++;
 
         if(slideIdx == slides.length) slideIdx = 0; // set back to first element
-
-        setTimeout(carousel, 4000); // re-run function after every 2secs
     }
 
     useEffect(() => {
+        let timeout;
         if(currentUser)
         {
             history.push('/');
         }
         else
         {
-            carousel();
+            // good practice
+            timeout = setInterval(carousel, 4000); // re-run function after every 4secs
+            setTimer(timeout);
+        }
+
+        return () => {
+            clearInterval(timeout);
         }
     }, []);
 

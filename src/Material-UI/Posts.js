@@ -76,7 +76,7 @@ function Posts({ userData = null }) {
                             return (
                                 <React.Fragment key={index}>
                                     <div className='video'>
-                                        <Cards source={post.pUrl} id={post.pId} name={post.uName} avatar={post.uProfile}/>
+                                        <Cards source={post.pUrl} post={post} name={post.uName} avatar={post.uProfile}/>
                                     </div>
                                 </React.Fragment>
                             );
