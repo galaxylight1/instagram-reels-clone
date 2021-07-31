@@ -38,6 +38,13 @@ const useStyles = makeStyles({
         width: '25px',
         height: '25px',
     },
+    likeCount: {
+        position: 'absolute',
+        top: '23rem',
+        left: '18rem',
+        fontSize: '15px',
+        fontWeight: '500',
+    }
 });
 
 function Comments({ postData, name, avatar }) {
@@ -88,12 +95,16 @@ function Comments({ postData, name, avatar }) {
                 {
                     comments == null ? <CircularProgress className={classes.progress} /> :
                     comments.map((comment, index) => (
-                        <div key={index} className={classes.commentDiv}>
-                            <Avatar className={classes.avatar} src={comment.uUrl} />
-                            <p style={{fontSize: '13px'}}><span style={{marginLeft: '6%', fontWeight:'bold'}}>{comment.uName}</span>&nbsp;&nbsp;{comment.text}</p>
-                        </div>
+                        comment ? 
+                            <div key={index} className={classes.commentDiv}>
+                                <Avatar className={classes.avatar} src={comment.uUrl} />
+                                <p style={{fontSize: '12px', marginLeft: '3%'}}><span style={{fontWeight:'bold'}}>{comment.uName}</span>&nbsp;&nbsp;{comment.text}</p>
+                            </div> : <></>
                     ))
                 }
+            </div>
+            <div className={classes.likeCount}>
+                Liked by {postData.likes.length}
             </div>
             <TextField fullWidth={true} label='Leave a comment' onChange={manageText} className={classes.textField} />
             <Button onClick={handleOnEnter} disabled={text==''?true:false} className ={classes.btn} color='primary'>Post</Button>

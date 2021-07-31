@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -8,7 +8,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import style from './Cards.module.css';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import Avatar from '@material-ui/core/Avatar';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -19,6 +18,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Comments from './Comments';
+import Likes from './Likes';
 
 const useStyles = makeStyles({
   root: {
@@ -34,12 +34,12 @@ const useStyles = makeStyles({
   label: {
     position: 'absolute',
     left: '1rem',
-    bottom: '1.85rem',
+    bottom: '2.5rem',
   },
   actionLabel: {
     position: 'absolute',
     right: '0.1rem',
-    bottom: '1.9rem',
+    bottom: '2rem',
   },
   dialog: {
     display: 'flex',
@@ -48,9 +48,13 @@ const useStyles = makeStyles({
     height: '73vh',
     width: '52vw',
   },
+  commentIcon: {
+    position: 'absolute',
+    bottom: '-0.28rem',
+  }
 });
 
-export default function Cards({ source, post, name, avatar}) {
+export default function Cards({ source, post, name, avatar, currentUserName, currentUserAvatar }) {
   const classes = useStyles();
   const [openId, setOpenId] = React.useState(null);
   const vidRef = useRef(null);
@@ -93,10 +97,11 @@ export default function Cards({ source, post, name, avatar}) {
 
         <div className={classes.actionLabel}>
           <Button size="small" color="primary">
-            <FavoriteBorderIcon style={{color: 'white', opacity: '0.7', zIndex: '3'}} />
+            <Likes postData={post} />
+
           </Button>
           <Button size="small" color="primary">
-            <ChatBubbleOutlineIcon style={{color: 'white', opacity: '0.7', zIndex: '3'}} onClick={() => handleClickOpen(post.pId)}/>
+            <ChatBubbleOutlineIcon className={classes.commentIcon} style={{color: 'white', opacity: '0.7', zIndex: '3'}} onClick={() => handleClickOpen(post.pId)}/>
           </Button>
 
             <Dialog
@@ -109,7 +114,7 @@ export default function Cards({ source, post, name, avatar}) {
                 <div className={classes.dialogContainer}>
                   <video className={style.vsDialog} autoPlay loop src={post.pUrl} />
                 </div>
-                <Comments postData={post} name={name} avatar={avatar}/>
+                <Comments postData={post} name={currentUserName} avatar={currentUserAvatar} />
               </div>
               
           </Dialog>

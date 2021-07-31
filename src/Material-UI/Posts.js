@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { database } from '../firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Cards from './Cards';
+import { AuthContext } from '../Context/AuthProvider';
 
 const useStyles = makeStyles({
     root: {
@@ -18,6 +19,9 @@ const useStyles = makeStyles({
 function Posts({ userData = null }) {
     const classes = useStyles();
     const [posts, setPosts] = useState(null); // initially we don't have posts, we will get it from collection
+    const { currentUser } = useContext(AuthContext); 
+    const [currentUserName, setCurrentUserName] = useState('');
+    const [currentUserAvatar, setCurrentUserAvatar] = useState(null);
 
     // callback for our Intersection Observer API
     const callback = (entries) => {
@@ -36,7 +40,7 @@ function Posts({ userData = null }) {
     const observer = new IntersectionObserver(callback, { threshold: 0.85 }); 
 
     // useEffect Hook 2nd Variation
-    useEffect(() => {
+    useEffect(async () => {
         let parr = [];
         const unsub = database.posts.orderBy('createdAt', 'desc').onSnapshot((querySnapshot) => { // snapshot to detect real-time changes
             parr = []; // to avoid duplicate entries
@@ -46,6 +50,11 @@ function Posts({ userData = null }) {
             });
             setPosts(parr);
         });
+
+        let userData = await database.users.doc(currentUser.uid).get();
+        let obj = userData.data();
+        setCurrentUserName(obj.username);
+        setCurrentUserAvatar(obj.profileUrl);
 
         return unsub; // cleanup listener
     }, []);
@@ -76,7 +85,7 @@ function Posts({ userData = null }) {
                             return (
                                 <React.Fragment key={index}>
                                     <div className='video'>
-                                        <Cards source={post.pUrl} post={post} name={post.uName} avatar={post.uProfile}/>
+                                        <Cards source={post.pUrl} post={post} name={post.uName} avatar={post.uProfile} currentUserName={currentUserName} currentUserAvatar={currentUserAvatar} />
                                     </div>
                                 </React.Fragment>
                             );
