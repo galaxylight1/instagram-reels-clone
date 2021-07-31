@@ -58,7 +58,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function LoginCard({ name, password, login, error }) {
+export default function LoginCard({ email, password, login, error }) {
 
   const classes = useStyles();
   const history = useHistory();
@@ -68,7 +68,7 @@ export default function LoginCard({ name, password, login, error }) {
       <CardContent>
         <img className={classes.logo} src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" />
         
-        <TextField className={classes.field} id="standard-basic" label="Username" onChange={(e) => name(e.target.value)}/>
+        <TextField className={classes.field} id="standard-basic" label="Email" onChange={(e) => email(e.target.value)}/>
         <TextField className={classes.field} id="standard-basic" label="Password" type="password" onChange={(e) => password(e.target.value)}/>
 
       </CardContent>

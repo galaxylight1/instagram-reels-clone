@@ -77,7 +77,7 @@ function Login() {
             <img className="mySlides" style={{position: 'absolute', left: '18.5rem', top: '9rem', height: '60vh', borderRadius: '30px', boxShadow: '0px 3px 5px #333'}} src="https://www.instagram.com/static/images/homepage/screenshot4.jpg/842fe5699220.jpg" />
             <img className="mySlides" style={{position: 'absolute', left: '18.5rem', top: '9rem', height: '60vh', borderRadius: '30px', boxShadow: '0px 3px 5px #333'}} src="https://www.instagram.com/static/images/homepage/screenshot1.jpg/d6bf0c928b5a.jpg" />
 
-            <LoginCard name={setName} password={setPassword} login={handleLogin} error={error}/> 
+            <LoginCard email={setEmail} password={setPassword} login={handleLogin} error={error}/> 
         </>
     );
 }
